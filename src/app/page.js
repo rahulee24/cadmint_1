@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import Journey from '@/components/Journey'
 import Timeline from '@/components/Timeline'
+import FAQ from '@/components/FAQ'
 import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
 
@@ -28,6 +29,7 @@ export default function Home() {
         <Hero />
         <Journey />
         <Timeline />
+        <FAQ />
         <CTA />
       </main>
       <Footer />
@@ -35,4 +37,5 @@ export default function Home() {
     </div>
   )
 }
+
 
