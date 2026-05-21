@@ -15,88 +15,70 @@ export default function Footer() {
   }
 
   return (
-    <footer className="footer-container">
-      <div className="footer-columns">
-        {/* Brand Column */}
-        <div className="footer-brand-col">
-          <Link href="/" className="footer-logo" style={{ fontSize: '20px', fontWeight: '700', letterSpacing: '-0.5px' }}>
-            CAD<span style={{ color: '#818cf8' }}>mint</span>
-          </Link>
-          <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: '1.6', marginTop: '10px' }}>
-            Browser-based circuit sketchpad, cloud SPICE simulation, collaborative PCB layout, and supply-chain logistics. Design tomorrow, today.
+    <footer className="footer-compact-container">
+      <div className="footer-compact-inner">
+        {/* LEFT: Logo & Short description */}
+        <div className="footer-compact-left">
+          <div className="footer-compact-brand">
+            <Link href="/" className="footer-compact-logo">
+              CAD<span>mint</span>
+            </Link>
+            <div className="footer-compact-badge">v4.2</div>
+          </div>
+          <p className="footer-compact-desc">
+            Browser circuit sketchpad, SPICE simulation, and PCB layout. A division of <a href="https://hardjunc.dev" target="_blank" rel="noopener noreferrer">hardjunc.dev</a>.
           </p>
-          <div style={{ marginTop: '16px', fontSize: '12px', color: 'var(--fg-dim)' }}>
-            A division of <a href="https://hardjunc.dev" target="_blank" rel="noopener noreferrer" style={{ color: '#818cf8', fontWeight: '500' }}>hardjunc.dev</a>
-          </div>
         </div>
 
-        {/* Column 1: Product */}
-        <div>
-          <h4 className="footer-col-title">Product</h4>
-          <div className="footer-links">
-            <span className="footer-link">AI Co-pilot Routing</span>
-            <span className="footer-link">SPICE Wave Sim</span>
-            <span className="footer-link">Collaborative Workspace</span>
-            <span className="footer-link">Pricing Plans</span>
-          </div>
+        {/* MID: Compact Horizontal Navigation */}
+        <div className="footer-compact-mid">
+          <a href="#problems" className="footer-compact-link">Comparison</a>
+          <div className="footer-compact-dot"></div>
+          <a href="#features" className="footer-compact-link">Features</a>
+          <div className="footer-compact-dot"></div>
+          <a href="#pricing" className="footer-compact-link">Pricing</a>
+          <div className="footer-compact-dot"></div>
+          <a href="#timeline" className="footer-compact-link">Timeline</a>
+          <div className="footer-compact-dot"></div>
+          <a href="#faq" className="footer-compact-link">FAQ</a>
         </div>
 
-        {/* Column 2: Resources */}
-        <div>
-          <h4 className="footer-col-title">Resources</h4>
-          <div className="footer-links">
-            <span className="footer-link">API Docs & Manual</span>
-            <span className="footer-link">Component Libraries</span>
-            <span className="footer-link">DRC Guidelines</span>
-            <span className="footer-link">System Status</span>
-          </div>
-        </div>
-
-        {/* Column 3: Company */}
-        <div>
-          <h4 className="footer-col-title">Company</h4>
-          <div className="footer-links">
-            <span className="footer-link">About Us</span>
-            <span className="footer-link">Engineering Blog</span>
-            <span className="footer-link">Security Center</span>
-            <span className="footer-link">Careers</span>
-          </div>
-        </div>
-
-        {/* Column 4: Newsletter */}
-        <div>
-          <h4 className="footer-col-title">Stay Connected</h4>
+        {/* RIGHT: Compact Subscription Form */}
+        <div className="footer-compact-right">
           {subscribed ? (
-            <div style={{ fontSize: '12px', color: '#10b981', fontFamily: 'var(--font-mono)' }}>
-              ✓ Subscribed successfully! Welcome to CADmint.
+            <div className="footer-compact-subscribed">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ marginRight: '6px' }}>
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Subscribed
             </div>
           ) : (
-            <form onSubmit={handleSubscribe} className="footer-subscribe">
+            <form onSubmit={handleSubscribe} className="footer-compact-form">
               <input 
                 type="email" 
-                placeholder="Enter your email" 
-                className="footer-subscribe-input"
+                placeholder="Stay updated" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                aria-label="Newsletter email"
               />
-              <button type="submit" className="footer-subscribe-btn">
-                SUBSCRIBE
+              <button type="submit" className="magnetic">
+                JOIN
               </button>
             </form>
           )}
         </div>
       </div>
 
-      {/* Footer Bottom */}
-      <div className="footer-bottom">
+      {/* Sub-bar Copyright */}
+      <div className="footer-compact-subbar">
         <div>
-          &copy; {new Date().getFullYear()} CADmint &amp; HardJunc. All rights reserved.
+          &copy; {new Date().getFullYear()} CADmint. All rights reserved.
         </div>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <span className="footer-link" style={{ fontSize: '12px' }}>Privacy Policy</span>
-          <span className="footer-link" style={{ fontSize: '12px' }}>Terms of Service</span>
-          <span className="footer-link" style={{ fontSize: '12px' }}>DRC Compliance</span>
+        <div className="footer-compact-subbar-links">
+          <span>Privacy Policy</span>
+          <span>Terms of Service</span>
+          <span>DRC Compliance</span>
         </div>
       </div>
     </footer>

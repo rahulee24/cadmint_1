@@ -2004,131 +2004,217 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 24px;
 }
 
-/* ── Expanded Corporate Footer ────────────────────────────── */
-.footer-container {
+/* ── Compact Space-Saving Footer ────────────────────────────── */
+.footer-compact-container {
   border-top: 1px solid var(--border);
-  background: rgba(2, 6, 23, 0.8);
-  backdrop-filter: blur(12px);
-  padding: 80px 24px 40px;
+  background: rgba(2, 6, 23, 0.4);
+  backdrop-filter: blur(20px);
+  padding: 40px 24px 30px;
   position: relative;
   z-index: 10;
   width: 100%;
 }
 
-.footer-columns {
-  max-width: 1280px;
-  margin: 0 auto 60px;
-  display: grid;
-  grid-template-cols: 1.5fr repeat(4, 1fr);
-  gap: 40px;
-}
-
-@media (max-width: 991px) {
-  .footer-columns {
-    grid-template-cols: 1fr 1fr;
-    gap: 30px;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-columns {
-    grid-template-cols: 1fr;
-  }
-}
-
-.footer-brand-col {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.footer-col-title {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--fg);
-  margin-bottom: 16px;
-  font-weight: 600;
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.footer-link {
-  font-size: 13px;
-  color: var(--fg-muted);
-  transition: color 0.2s;
-  cursor: pointer;
-}
-
-.footer-link:hover {
-  color: #818cf8;
-}
-
-.footer-subscribe {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 280px;
-}
-
-.footer-subscribe-input {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: rgba(2, 6, 23, 0.6);
-  color: var(--fg);
-  font-size: 12px;
-  font-family: var(--font-body);
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.footer-subscribe-input:focus {
-  border-color: rgba(99, 102, 241, 0.5);
-}
-
-.footer-subscribe-btn {
-  padding: 10px 16px;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #6366f1, #a855f7);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  transition: opacity 0.2s;
-  text-align: center;
-}
-
-.footer-subscribe-btn:hover {
-  opacity: 0.9;
-}
-
-.footer-bottom {
-  max-width: 1280px;
+.footer-compact-inner {
+  max-width: var(--max-w);
   margin: 0 auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+@media (max-width: 991px) {
+  .footer-compact-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+}
+
+.footer-compact-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 340px;
+}
+
+@media (max-width: 991px) {
+  .footer-compact-left {
+    align-items: center;
+  }
+}
+
+.footer-compact-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-compact-logo {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--fg);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.footer-compact-logo span {
+  color: var(--emerald);
+}
+
+.footer-compact-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.footer-compact-desc {
   font-size: 12px;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+
+.footer-compact-desc a {
+  color: #818cf8;
+  font-weight: 500;
+}
+
+.footer-compact-desc a:hover {
+  text-decoration: underline;
+}
+
+.footer-compact-mid {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+  .footer-compact-mid {
+    justify-content: center;
+  }
+}
+
+.footer-compact-link {
+  font-size: 12px;
+  color: var(--fg-muted);
+  transition: color 0.3s ease;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-compact-link:hover {
+  color: #10b981;
+}
+
+.footer-compact-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--fg-ghost);
+}
+
+.footer-compact-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-compact-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  padding: 4px 4px 4px 12px;
+  border-radius: 8px;
+  width: 280px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-compact-form:focus-within {
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.05);
+}
+
+.footer-compact-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 11px;
+  outline: none;
+  font-family: var(--font-body);
+}
+
+.footer-compact-form button {
+  background: #fff;
+  color: #000;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: var(--font-mono);
+}
+
+.footer-compact-form button:hover {
+  background: #e2e8f0;
+}
+
+.footer-compact-subscribed {
+  display: flex;
+  align-items: center;
+  color: #10b981;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.footer-compact-subbar {
+  max-width: var(--max-w);
+  margin: 30px auto 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 11px;
   color: var(--fg-dim);
 }
 
-@media (max-width: 767px) {
-  .footer-bottom {
+@media (max-width: 768px) {
+  .footer-compact-subbar {
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
     text-align: center;
+    gap: 12px;
   }
+}
+
+.footer-compact-subbar-links {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-compact-subbar-links span {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.footer-compact-subbar-links span:hover {
+  color: var(--fg-muted);
 }
 
 /* ═══════════════════════════════════════════════════════════════
