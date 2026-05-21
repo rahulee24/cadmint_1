@@ -5,6 +5,9 @@ import ScrollProgress from '@/components/ScrollProgress'
 import ClientEffects from '@/components/ClientEffects'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import Stats from '@/components/Stats'
+import Problems from '@/components/Problems'
+import Features from '@/components/Features'
 import Journey from '@/components/Journey'
 import Timeline from '@/components/Timeline'
 import FAQ from '@/components/FAQ'
@@ -27,6 +30,9 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-20 lg:px-8 lg:pt-28">
         <Hero />
+        <Stats />
+        <Problems />
+        <Features />
         <Journey />
         <Timeline />
         <FAQ />
@@ -37,5 +43,6 @@ export default function Home() {
     </div>
   )
 }
+
 
 

@@ -1,61 +1,258 @@
+'use client'
+import { useState, useEffect, useRef } from 'react'
+
 export default function Features() {
-  const features = [
-    {
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>,
-      title: 'Circuit Design',
-      desc: 'Drag-and-drop schematic editor with intelligent auto-routing and a library of 10,000+ components. Design feels like sketching.',
-      delay: 1,
-    },
-    {
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>,
-      title: 'SPICE Simulation',
-      desc: 'Run real-time SPICE simulations in the browser. See voltage, current, and timing diagrams update as you tweak your design.',
-      delay: 2,
-    },
-    {
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/><path d="M17 12h.01"/><path d="M7 12h.01"/></svg>,
-      title: 'PCB Layout',
-      desc: 'Go from schematic to PCB in seconds. Multi-layer support, DRC checks, and Gerber export — all without leaving your browser.',
-      delay: 3,
-    },
-    {
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/></svg>,
-      title: 'Supply Chain',
-      desc: 'Automated BOM generation with live pricing and stock from major distributors. Order components with one click from your design.',
-      delay: 1,
-    },
-    {
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-      title: 'Team Collaboration',
-      desc: 'Real-time multiplayer editing. Share your canvas, get live feedback from mentors, and build together without version conflicts.',
-      delay: 2,
-    },
-    {
-      icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v6"/><circle cx="12" cy="12" r="3"/><path d="M12 15v6"/><path d="M3 12h6"/><path d="M15 12h6"/></svg>,
-      title: 'AI Co-pilot',
-      desc: 'Describe what you want in plain English. The AI suggests circuits, catches mistakes, and generates starter code tailored to your project.',
-      delay: 3,
-    },
-  ]
+  // States for interactive subcomponents
+  const [terminalLogs, setTerminalLogs] = useState([])
+  const [waveOffset, setWaveOffset] = useState(0)
+  const [stockCounts, setStockCounts] = useState([24192, 12840, 4103])
+  const [activeUser, setActiveUser] = useState(0)
+
+  // 1. AI Co-pilot Terminal typing effect
+  useEffect(() => {
+    const logs = [
+      '>> Initializing AI routing co-pilot...',
+      '>> Analyzing board layer constraints...',
+      '>> Match trace: Trace 14 (50 ohm differential pair)',
+      '>> Optimizing via Layer 2 inner ground plane...',
+      '>> Sweep complete in 2.4s. 0 DRC violations.',
+      '>> Re-running SPICE simulation sweeps...',
+      '>> Frequency sweep: Peak gain @ 2.4GHz.',
+      '>> System stable. Ready to export Gerbers.'
+    ]
+
+    let currentLogIndex = 0
+    const interval = setInterval(() => {
+      setTerminalLogs(prev => {
+        const nextLogs = [...prev, logs[currentLogIndex]]
+        if (nextLogs.length > 5) {
+          nextLogs.shift()
+        }
+        return nextLogs
+      })
+      currentLogIndex = (currentLogIndex + 1) % logs.length
+    }, 2800)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // 2. Oscilloscope wave animation
+  useEffect(() => {
+    let animFrame
+    const updateWave = () => {
+      setWaveOffset(prev => (prev + 0.05) % (Math.PI * 2))
+      animFrame = requestAnimationFrame(updateWave)
+    }
+    animFrame = requestAnimationFrame(updateWave)
+    return () => cancelAnimationFrame(animFrame)
+  }, [])
+
+  // 3. Stock counts tick
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStockCounts(prev => {
+        return prev.map((count, idx) => {
+          // STM32/ESP32 stock decreases, Regulator fluctuatues
+          const delta = idx === 2 ? (Math.random() > 0.5 ? 10 : -10) : -Math.floor(Math.random() * 2)
+          return Math.max(0, count + delta)
+        })
+      })
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // 4. Multiplayer hubs active cursor shift
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveUser(prev => (prev + 1) % 3)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Wave points calculation for SVG
+  const generateWavePath = (frequency, amplitude, phaseShift) => {
+    const points = []
+    const width = 300
+    const height = 120
+    const midY = height / 2
+
+    for (let x = 0; x <= width; x += 5) {
+      const angle = (x / width) * Math.PI * 2 * frequency + phaseShift
+      const y = midY + Math.sin(angle) * amplitude
+      points.push(`${x},${y}`)
+    }
+    return `M ${points.join(' L ')}`
+  }
 
   return (
     <section id="features" className="section">
-      <div className="features-header reveal">
-        <p className="section-label">What powers the studio</p>
+      <div className="features-header reveal reveal-visible">
+        <p className="section-label">Interactive Capabilities</p>
         <h2 className="section-title">Everything you need, nothing you don&apos;t</h2>
-        <p className="section-subtitle">Six pillars that turn CADmint from a tool into a creative partner for your next hardware project.</p>
+        <p className="section-subtitle" style={{ maxWidth: '640px', margin: '0 auto 50px' }}>
+          Four pillars of the CADmint studio environment. Explore the fully responsive bento grid to watch real-time simulated processes in action.
+        </p>
       </div>
 
-      <div className="features-grid">
-        {features.map((f, i) => (
-          <div key={i} className={`feature-card reveal reveal-delay-${f.delay}`}>
-            <div className="feature-card-glow"></div>
-            <div className="feature-icon">{f.icon}</div>
-            <h3>{f.title}</h3>
-            <p>{f.desc}</p>
+      <div className="bento-grid">
+        {/* Bento Card 1: AI Routing Co-pilot (Large) */}
+        <div className="bento-card bento-large-col">
+          <div className="bento-glow"></div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2">
+                <path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/>
+              </svg>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', fontWeight: '400', color: '#fff' }}>
+                AI Routing Co-pilot
+              </h3>
+            </div>
+            <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: '1.6' }}>
+              Let our automated copilot map routing trace sweeps instantly. Describe board constraints in plain English and let the AI balance differential pairs, thermal dissipation, and copper plane fills on the fly.
+            </p>
           </div>
-        ))}
+
+          <div className="bento-code-terminal">
+            {terminalLogs.map((log, index) => {
+              let color = '#a5b4fc' // Indigo light
+              if (log.includes('stable')) color = '#34d399' // Emerald
+              if (log.includes('Analyzing') || log.includes('Match')) color = '#c084fc' // Purple
+              return (
+                <div key={index} style={{ color, transition: 'all 0.3s ease' }}>
+                  {log}
+                </div>
+              )
+            })}
+            {terminalLogs.length === 0 && <div style={{ color: '#666' }}>&gt;&gt; Awaiting AI trace prompt...</div>}
+          </div>
+        </div>
+
+        {/* Bento Card 2: Real-time SPICE Sim (Tall) */}
+        <div className="bento-card bento-tall">
+          <div className="bento-glow"></div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2">
+                <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>
+              </svg>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', fontWeight: '400', color: '#fff' }}>
+                SPICE Simulation
+              </h3>
+            </div>
+            <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: '1.6' }}>
+              Run full transient, AC, and DC sweeps directly in-browser. Watch voltages, current spikes, and phase diagrams adapt live to every parameter update.
+            </p>
+          </div>
+
+          <div className="bento-sim-wave-box">
+            <svg width="100%" height="100%" viewBox="0 0 300 120" style={{ opacity: 0.85 }}>
+              {/* Scope Grid Background */}
+              <defs>
+                <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="1" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+              {/* Live Waves */}
+              <path
+                d={generateWavePath(2, 25, waveOffset)}
+                fill="none"
+                stroke="#6366f1"
+                strokeWidth="2.5"
+                style={{ filter: 'drop-shadow(0 0 4px rgba(99, 102, 241, 0.5))' }}
+              />
+              <path
+                d={generateWavePath(4, 15, -waveOffset * 1.5)}
+                fill="none"
+                stroke="#a855f7"
+                strokeWidth="1.5"
+                style={{ opacity: 0.6 }}
+              />
+              <path
+                d={generateWavePath(1, 35, waveOffset * 0.5)}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="1.5"
+                style={{ opacity: 0.4 }}
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Bento Card 3: Multiplayer Hub (Wide) */}
+        <div className="bento-card bento-wide">
+          <div className="bento-glow"></div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', fontWeight: '400', color: '#fff' }}>
+                Multiplayer Editing Hub
+              </h3>
+            </div>
+            <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: '1.6' }}>
+              Hardware is collaborative. Draw schematics with classmates, review multi-layer tracks with your mentor in real-time, and eliminate complex Git branch merges with unified server-side canvas synchronization.
+            </p>
+          </div>
+
+          <div className="bento-multiplayer-hub">
+            <div className="bento-user-badge" style={{ borderColor: activeUser === 0 ? '#10b981' : 'rgba(255, 255, 255, 0.04)', background: activeUser === 0 ? 'rgba(16, 185, 129, 0.06)' : 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="bento-user-dot" style={{ color: '#10b981' }}></div>
+              <span>@rahul — Routing trace #32 on L1 (Active)</span>
+            </div>
+            <div className="bento-user-badge" style={{ borderColor: activeUser === 1 ? '#a855f7' : 'rgba(255, 255, 255, 0.04)', background: activeUser === 1 ? 'rgba(168, 85, 247, 0.06)' : 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="bento-user-dot" style={{ color: '#a855f7' }}></div>
+              <span>@mentor_ai — Running auto-DRC sweeps...</span>
+            </div>
+            <div className="bento-user-badge" style={{ borderColor: activeUser === 2 ? '#6366f1' : 'rgba(255, 255, 255, 0.04)', background: activeUser === 2 ? 'rgba(99, 102, 241, 0.06)' : 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="bento-user-dot" style={{ color: '#6366f1' }}></div>
+              <span>@collaborator_1 — Auditing BOM pricing tickers</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bento Card 4: Inventory & Procurement */}
+        <div className="bento-card">
+          <div className="bento-glow"></div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '24px', fontWeight: '400', color: '#fff' }}>
+                BOM Procurement
+              </h3>
+            </div>
+            <p style={{ fontSize: '13px', color: 'var(--fg-muted)', lineHeight: '1.6' }}>
+              Instant bill-of-materials generation connected directly with live distributor pricing databases.
+            </p>
+          </div>
+
+          <div className="bento-inventory-list">
+            <div className="bento-inventory-item">
+              <span style={{ color: '#cbd5e1' }}>STM32F405RGT6</span>
+              <span style={{ color: '#34d399' }}>{stockCounts[0].toLocaleString()} in stock</span>
+            </div>
+            <div className="bento-inventory-item">
+              <span style={{ color: '#cbd5e1' }}>ESP32-S3-WROOM</span>
+              <span style={{ color: '#34d399' }}>{stockCounts[1].toLocaleString()} in stock</span>
+            </div>
+            <div className="bento-inventory-item">
+              <span style={{ color: '#cbd5e1' }}>MP2307 Regulator</span>
+              <span style={{ color: '#34d399' }}>{stockCounts[2].toLocaleString()} in stock</span>
+            </div>
+            <div className="bento-inventory-item">
+              <span style={{ color: '#e2e8f0', opacity: 0.6 }}>TPS563200 Regulator</span>
+              <span style={{ color: '#f87171' }}>Out of Stock</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
 }
+
