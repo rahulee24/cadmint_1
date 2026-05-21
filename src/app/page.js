@@ -2,13 +2,16 @@ import LoadingScreen from '@/components/LoadingScreen'
 import CustomCursor from '@/components/CustomCursor'
 import ParticleCanvas from '@/components/ParticleCanvas'
 import ScrollProgress from '@/components/ScrollProgress'
+import ScrollSpy from '@/components/ScrollSpy'
 import ClientEffects from '@/components/ClientEffects'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import Stats from '@/components/Stats'
+import Ecosystem from '@/components/Ecosystem'
 import Problems from '@/components/Problems'
 import Features from '@/components/Features'
 import Journey from '@/components/Journey'
+import Pricing from '@/components/Pricing'
 import Timeline from '@/components/Timeline'
 import FAQ from '@/components/FAQ'
 import CTA from '@/components/CTA'
@@ -26,14 +29,17 @@ export default function Home() {
       <div className="scanline-overlay" aria-hidden="true"></div>
       <ParticleCanvas />
       <ScrollProgress />
+      <ScrollSpy />
       
       <Navbar />
       <main className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-20 lg:px-8 lg:pt-28">
         <Hero />
         <Stats />
+        <Ecosystem />
         <Problems />
         <Features />
         <Journey />
+        <Pricing />
         <Timeline />
         <FAQ />
         <CTA />
@@ -43,6 +49,7 @@ export default function Home() {
     </div>
   )
 }
+
 
 
 

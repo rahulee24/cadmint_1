@@ -2517,3 +2517,332 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 8px #10b981;
 }
 
+/* ── Interactive Elements Upgrade ────────────────────────────── */
+
+/* Scroll Spy Navigation */
+.scroll-spy {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .scroll-spy {
+    display: none;
+  }
+}
+
+.scroll-spy-track {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.scroll-spy-track::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  right: 3px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: -1;
+}
+
+.scroll-spy-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  cursor: pointer;
+  group: hover;
+}
+
+.scroll-spy-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--fg-muted);
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.scroll-spy-item:hover .scroll-spy-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-spy-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.scroll-spy-item.active .scroll-spy-dot {
+  background: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  transform: scale(1.3);
+}
+
+.scroll-spy-item.active .scroll-spy-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: #10b981;
+}
+
+/* Ecosystem Marquee */
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding: 20px 0;
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 60px;
+  animation: scroll-marquee 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.marquee-text {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  transition: color 0.3s ease;
+  cursor: default;
+}
+
+.marquee-text:hover {
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.marquee-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes scroll-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 30px)); }
+}
+
+/* Pricing Section */
+.pricing-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-top: 30px;
+}
+
+.pricing-toggle-wrapper span {
+  transition: color 0.3s ease;
+}
+
+.pricing-toggle-wrapper span.active {
+  color: #fff;
+}
+
+.pricing-toggle {
+  width: 52px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle-knob {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.pricing-toggle.yearly .toggle-knob {
+  transform: translateX(22px);
+  background: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.discount-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  margin-left: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+
+.pricing-card {
+  padding: 40px;
+}
+
+.pricing-card.highlight {
+  border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(168, 85, 247, 0.05);
+  transform: scale(1.02);
+}
+
+@media (max-width: 991px) {
+  .pricing-card.highlight {
+    transform: scale(1);
+  }
+}
+
+.pricing-card h3 {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.pricing-desc {
+  font-size: 13px;
+  color: var(--fg-muted);
+  line-height: 1.5;
+  min-height: 40px;
+  margin-bottom: 24px;
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.pricing-price .currency {
+  font-size: 20px;
+  color: var(--fg-dim);
+}
+
+.pricing-price .amount {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -1px;
+}
+
+.pricing-price .period {
+  font-size: 14px;
+  color: var(--fg-dim);
+}
+
+.pricing-billed-yearly {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: #34d399;
+  margin-bottom: 24px;
+  height: 16px;
+}
+
+.pricing-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.pricing-btn.primary {
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+}
+
+.pricing-btn.primary:hover {
+  box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+.pricing-btn.secondary {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.pricing-features svg {
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
