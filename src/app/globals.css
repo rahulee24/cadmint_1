@@ -5,30 +5,30 @@
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --bg:            #0a0a0a;
-  --bg-card:       #121212;
-  --bg-card-hover: #181818;
-  --bg-elevated:   #1a1a1a;
-  --bg-surface:    rgba(255,255,255,0.02);
+  --bg:            #030712;
+  --bg-card:       rgba(9, 13, 25, 0.4);
+  --bg-card-hover: rgba(17, 24, 39, 0.6);
+  --bg-elevated:   #1f2937;
+  --bg-surface:    rgba(255, 255, 255, 0.02);
 
-  --fg:            #ffffff;
-  --fg-muted:      #a0a0a0;
-  --fg-dim:        #666666;
-  --fg-ghost:      #3a3a3a;
+  --fg:            #f9fafb;
+  --fg-muted:      #9ca3af;
+  --fg-dim:        #4b5563;
+  --fg-ghost:      #374151;
 
-  --emerald:       #10b981;
-  --emerald-light: #34d399;
-  --emerald-dark:  #059669;
-  --emerald-glow:  rgba(16,185,129,0.15);
-  --emerald-glow2: rgba(16,185,129,0.08);
-  --emerald-border:rgba(16,185,129,0.3);
+  --emerald:       #6366f1; /* Theme accent: Indigo */
+  --emerald-light: #a855f7; /* Secondary accent: Purple */
+  --emerald-dark:  #4f46e5;
+  --emerald-glow:  rgba(99, 102, 241, 0.12);
+  --emerald-glow2: rgba(99, 102, 241, 0.06);
+  --emerald-border:rgba(99, 102, 241, 0.25);
 
-  --border:        rgba(255,255,255,0.08);
-  --border-hover:  rgba(255,255,255,0.15);
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-hover:  rgba(255, 255, 255, 0.15);
 
-  --font-heading:  var(--font-eb-garamond), Georgia, serif;
-  --font-body:     var(--font-inter), -apple-system, sans-serif;
-  --font-mono:     var(--font-fira-code), monospace;
+  --font-heading:  var(--font-geist-sans), -apple-system, sans-serif;
+  --font-body:     var(--font-geist-sans), -apple-system, sans-serif;
+  --font-mono:     var(--font-geist-mono), monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart:cubic-bezier(0.25, 1, 0.5, 1);
@@ -54,7 +54,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
-  font-weight: 200;
+  font-weight: 300;
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none;
@@ -62,7 +62,7 @@ body {
 
 ::selection {
   background: var(--emerald);
-  color: var(--bg);
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
@@ -85,8 +85,9 @@ img { max-width: 100%; display: block; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 1.1;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 /* ── Loading Screen ────────────────────────────────────────── */
@@ -1606,4 +1607,61 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* ── Live Vercel Theme Enhancements ───────────────────────── */
+.vercel-bg-wrapper {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #020617, #0b0f19, #020617);
+}
+
+.vercel-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(45deg, transparent 30%, rgba(99, 102, 241, 0.03) 30%, rgba(99, 102, 241, 0.03) 70%, transparent 70%);
+  background-size: 60px 60px;
+  animation: vercelGrid 25s linear infinite;
+  z-index: 0;
+}
+
+@keyframes vercelGrid {
+  from { background-position: 0 0; }
+  to { background-position: 60px 60px; }
+}
+
+.vercel-glow-1 {
+  position: absolute;
+  left: 15%;
+  top: 15%;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.06);
+  filter: blur(80px);
+  animation: pulseGlowSlow 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.vercel-glow-2 {
+  position: absolute;
+  right: 15%;
+  bottom: 15%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.05);
+  filter: blur(100px);
+  animation: pulseGlowSlow 8s ease-in-out infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulseGlowSlow {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+  50% { transform: scale(1.1) translate(20px, -20px); opacity: 1; }
 }

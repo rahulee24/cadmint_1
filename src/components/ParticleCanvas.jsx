@@ -40,7 +40,7 @@ export default function ParticleCanvas() {
       draw() {
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(16, 185, 129, ${this.opacity})`
+        ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`
         ctx.fill()
       }
     }
@@ -53,7 +53,7 @@ export default function ParticleCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy)
           if (dist < CONNECTION_DISTANCE) {
             ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(16, 185, 129, ${(1 - dist / CONNECTION_DISTANCE) * 0.15})`; ctx.lineWidth = 0.5; ctx.stroke()
+            ctx.strokeStyle = `rgba(99, 102, 241, ${(1 - dist / CONNECTION_DISTANCE) * 0.15})`; ctx.lineWidth = 0.5; ctx.stroke()
           }
         }
       }
