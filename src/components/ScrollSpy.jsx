@@ -16,17 +16,24 @@ export default function ScrollSpy() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Check if user is near the bottom of the page to light up the final node (FAQ)
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 120
+      if (isAtBottom) {
+        setActiveId(navItems[navItems.length - 1].id)
+        return
+      }
+
       const scrollPosition = window.scrollY + window.innerHeight / 3
 
+      // Find the last section that has its top above the scroll trigger point
       let currentId = 'hero'
       for (const item of navItems) {
         const element = document.getElementById(item.id)
         if (element) {
-          const { top, bottom } = element.getBoundingClientRect()
-          const elementTop = top + window.scrollY
-          const elementBottom = bottom + window.scrollY
-
-          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+          const elementTop = element.getBoundingClientRect().top + window.scrollY
+          // Once the trigger scrollPosition passes this section's top, it becomes active.
+          // Since we iterate downwards, the furthest section down the page that was passed wins.
+          if (scrollPosition >= elementTop) {
             currentId = item.id
           }
         }
