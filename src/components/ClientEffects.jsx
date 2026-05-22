@@ -48,7 +48,7 @@ export default function ClientEffects() {
     })
 
     // ── 3D Card Tilt Effect ──────────────────────────────────
-    const tiltCards = document.querySelectorAll('.feature-card, .problem-card, .bento-card, .compare-card')
+    const tiltCards = document.querySelectorAll('.feature-card, .problem-card, .bento-card, .compare-card, .testimonial-card')
     const tiltHandlers = []
 
     tiltCards.forEach((card) => {
