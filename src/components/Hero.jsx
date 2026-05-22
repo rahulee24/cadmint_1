@@ -317,8 +317,9 @@ export default function Hero() {
                 {/* Inspect Component Card HUD Overlay */}
                 {activeComp && (
                   <div className="studio-inspect-card">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#a855f7', fontWeight: 'bold' }}>
+                    <div className="inspect-header">
+                      <span className="inspect-title">
+                        <span className="inspect-pulse-dot"></span>
                         {activeComp.name}
                       </span>
                       <button 
@@ -326,19 +327,37 @@ export default function Hero() {
                           e.stopPropagation()
                           setActiveComp(null)
                         }} 
-                        style={{ color: 'var(--fg-dim)', fontSize: '9px', cursor: 'pointer', fontFamily: 'var(--font-mono)' }}
+                        className="inspect-close-btn"
+                        title="Close inspection"
                       >
-                        [ESC]
+                        ESC
                       </button>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px', fontSize: '9px', fontFamily: 'var(--font-body)', color: 'var(--fg-muted)' }}>
-                      <div>Type: <span style={{ color: '#fff' }}>{activeComp.category}</span></div>
-                      <div>Footprint: <span style={{ color: '#fff' }}>{activeComp.footprint}</span></div>
-                      <div>Pins: <span style={{ color: '#fff' }}>{activeComp.pins}</span></div>
-                      <div>DRC Status: <span style={{ color: '#10b981' }}>PASSED</span></div>
+                    
+                    <div className="inspect-rows">
+                      <div className="inspect-row">
+                        <span className="inspect-label">Type</span>
+                        <span className="inspect-value badge">{activeComp.category}</span>
+                      </div>
+                      <div className="inspect-row">
+                        <span className="inspect-label">Footprint</span>
+                        <span className="inspect-value badge">{activeComp.footprint}</span>
+                      </div>
+                      <div className="inspect-row">
+                        <span className="inspect-label">Pins</span>
+                        <span className="inspect-value">{activeComp.pins}</span>
+                      </div>
+                      <div className="inspect-row">
+                        <span className="inspect-label">DRC Status</span>
+                        <span className="inspect-value highlight-green">
+                          <span style={{ fontSize: '6px' }}>●</span> PASSED
+                        </span>
+                      </div>
                     </div>
-                    <div style={{ fontSize: '9px', fontFamily: 'var(--font-mono)', color: '#f59e0b', marginTop: '6px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '4px' }}>
-                      {activeComp.status}
+
+                    <div className="inspect-footer">
+                      <span className="inspect-footer-icon">📦</span>
+                      <span>{activeComp.status}</span>
                     </div>
                   </div>
                 )}
